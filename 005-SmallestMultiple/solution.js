@@ -19,8 +19,9 @@ function smallestMultiple(upTo) {
         var toMap = primeFactors(i);
         collection.push(toMap);
     }
-    for (i = collection.length; i > 1; i--) {
+    for (i = collection.length - 1; i >= 0; i--) {
         var j = 0;
+        toMap = collection[i];
         while (j < toMap.length) {
             var currentFactor = toMap[j];
             var numOfCurFactor = 1;
@@ -39,8 +40,8 @@ function smallestMultiple(upTo) {
         }
     }
     var total = 1;
-    for (const key of largestNeeded.keys()) {
-        total *= (key * largestNeeded[key]);
+    for (key of largestNeeded.keys()) {
+        total *= (key ** largestNeeded.get(key));
     }
     return total;
 
