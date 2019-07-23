@@ -3,4 +3,24 @@ var toFind = "731671765313306249192251196744265747423553491949349698352031277450
 function nDigitProduct(n) {
     var start = 0;
     var end = n - 1;
+    var largest = 0;
+    while (end != toFind.length - 1) {
+        var runningTotal = 1;
+        for (var i = start; i <= end; i++) {
+            if (toFind.charAt(i) === 0) {
+                start += i + 1;
+                end += i + 1;
+                break;
+            } else {
+                runningTotal *= toFind.charAt(i);
+            }
+        }
+        if (runningTotal > largest) {
+            largest = runningTotal;
+        }
+        runningTotal = 1;
+        start++;
+        end++;
+    }
+    return largest;
 }
