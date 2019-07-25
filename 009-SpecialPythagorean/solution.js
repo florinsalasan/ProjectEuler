@@ -15,10 +15,9 @@ function perimeterToProduct(perimeter) {
             if (a ** 2 + b ** 2 === c ** 2) {
                 curPerimeter = a + b + c;
             }
-
         } else {
-            b = ((n ** 2 - 1) / 2) ** 2;
-            c = ((n ** 2 + 1) / 2) ** 2;
+            b = ((n ** 2 - 1) / 2);
+            c = ((n ** 2 + 1) / 2);
             if (a ** 2 + b ** 2 === c ** 2) {
                 curPerimeter = a + b + c;
             }
