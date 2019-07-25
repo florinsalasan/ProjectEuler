@@ -1,44 +1,40 @@
-// Use fibonacci's method to generate primitive triples until one is found that can divide perimeter,
-// Scale the sides by the quotient obtained by dividing perimeter by sum of sides from primitive triple
-// return the product of the scaled sides.
+// Based on David Vanderschel method of finding Pythagorean Triples found on:
+// https://www.quora.com/How-do-I-find-pythagorean-triplets-with-one-given-number
 
 function perimeterToProduct(perimeter) {
+    var curPerimeter = 0;
+    var n = 3;
     var a;
-    var b2;
     var b;
-    var c2;
     var c;
-    var k = 1;
-    while (a + b2 + c2 !== perimeter) {
-        a = Math.sqrt(k);
-        var n = (k + 1) / 2;
-        debugger;
-        var toAdd = 1;
-        b2 = toAdd;
-        for (var i = 1; i < n - 1; i++) {
-            toAdd += 2;
-            b2 += toAdd;
+    while (curPerimeter !== perimeter) {
+        a = n;
+        if (n % 2 === 0) {
+            b = ((n / 2) ** 2 - 1);
+            c = ((n / 2) ** 2 + 1);
+            if (a ** 2 + b ** 2 === c ** 2) {
+                curPerimeter = a + b + c;
+            }
+
+        } else {
+            b = ((n ** 2 - 1) / 2) ** 2;
+            c = ((n ** 2 + 1) / 2) ** 2;
+            if (a ** 2 + b ** 2 === c ** 2) {
+                curPerimeter = a + b + c;
+            }
         }
-        toAdd = 1;
-        c2 = toAdd;
-        for (var j = 1; j < n; j++) {
-            toAdd += 2;
-            c2 += toAdd;
+
+        if (perimeter % curPerimeter === 0) {
+            var quotient = perimeter / curPerimeter;
+            a *= quotient;
+            b *= quotient;
+            c *= quotient;
+            return a * b * c;
         }
-        debugger;
-        if (k + b2 === c2) {
-            if (perimeter % (a + Math.sqrt(b2) + Math.sqrt(c2)) === 0) {
-                c = Math.sqrt(c2);
-                b = Math.sqrt(b2);
-                a *= (perimeter / (a + b + c));
-                b *= (perimeter / (a + b + c));
-                c *= (perimeter / (a + b + c));
-                return (a * b * c);
-            } 
+
+        if (n > perimeter) {
+            return "No Result found"
         }
-        if (a >= perimeter / 2) {
-            return "No result found";
-        }
-        k += 2;
+        n++;
     }
 }
