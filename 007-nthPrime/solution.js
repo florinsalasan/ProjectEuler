@@ -4,16 +4,13 @@ function nthPrime(n) {
     var primesSoFar = [2];
     while (nth != n) {
         var isPrime = true;
-        debugger;
         for (var i = 0; i < primesSoFar.length; i++) {
             if (toCheck % primesSoFar[i] === 0) {
                 isPrime = false;
-                debugger;
                 break;
             }
         }
         if (isPrime) {
-            debugger;
             primesSoFar.push(toCheck);
             nth++;
         } else {
