@@ -37,7 +37,7 @@ function productOfGrid(ofNFactors) {
 
             //Setting index ranges for the nested lists
 
-            if (currentX + ofNFactors < toUse[currentY].length){
+            if (currentX + ofNFactors <= toUse[currentY].length){
                 maxCheckX = currentX + ofNFactors;
             }else {
                 maxCheckX = maxX;
@@ -47,7 +47,7 @@ function productOfGrid(ofNFactors) {
             }else {
                 minCheckX = 0;
             }
-            if (currentY + ofNFactors < toUse.length){
+            if (currentY + ofNFactors <= toUse.length){
                 maxCheckY = currentY + ofNFactors;
             }else {
                 maxCheckY = maxY;
@@ -104,7 +104,6 @@ function productOfGrid(ofNFactors) {
             // Diagonal down + right
             first = toUse[minCheckY][minCheckX];
             var maxAdded = Math.min(maxCheckX - minCheckX, maxCheckY - minCheckY);
-            debugger;
             for (var p = 0; p < maxAdded; p++) {
                 if (counter === ofNFactors) {
                     if (first !== 0){
