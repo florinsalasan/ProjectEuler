@@ -13,10 +13,10 @@ var toUse = [[08, 02, 22, 97, 38, 15, 00, 40, 00, 75, 04, 05, 07, 78, 52, 12, 50
              [86, 56, 00, 48, 35, 71, 89, 07, 05, 44, 44, 37, 44, 60, 21, 58, 51, 54, 17, 58],
              [19, 80, 81, 68, 05, 94, 47, 69, 28, 73, 92, 13, 86, 52, 17, 77, 04, 89, 55, 40],
              [04, 52, 08, 83, 97, 35, 99, 16, 07, 97, 57, 32, 16, 26, 26, 79, 33, 27, 98, 66],
-             [88, 36, 68, 87, 57, 62, 20, 72, 03, 46, 33, 67, 99, 55, 12, 32, 63, 93, 53, 69],
-             [04, 42, 16, 73, 38, 25, 39, 11, 24, 94, 72, 18, 08, 99, 29, 32, 40, 62, 76, 36],
-             [20, 69, 36, 41, 72, 30, 23, 88, 34, 62, 99, 69, 82, 67, 99, 85, 74, 04, 36, 16],
-             [20, 73, 35, 29, 78, 31, 90, 01, 74, 31, 49, 71, 48, 86, 81, 99, 23, 57, 05, 54],
+             [88, 36, 68, 87, 57, 62, 20, 72, 03, 46, 33, 67, 46, 55, 12, 32, 63, 93, 53, 69],
+             [04, 42, 16, 73, 38, 25, 39, 11, 24, 94, 72, 18, 08, 46, 29, 32, 40, 62, 76, 36],
+             [20, 69, 36, 41, 72, 30, 23, 88, 34, 62, 99, 69, 82, 67, 59, 85, 74, 04, 36, 16],
+             [20, 73, 35, 29, 78, 31, 90, 01, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 05, 54],
              [01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 01, 89, 19, 67, 48]];
 
 function productOfGrid(ofNFactors) {
@@ -34,24 +34,27 @@ function productOfGrid(ofNFactors) {
         for (var j = 0; j < toUse[i].length; j++) {
             currentX = j;
             currentY = i;
-            if (currentX + 4 < toUse[toUse[currentY].length])
-                maxCheckX = currentX + 4;
-            else {
+
+            //Setting index ranges for the nested lists
+
+            if (currentX + ofNFactors < toUse[currentY].length){
+                maxCheckX = currentX + ofNFactors;
+            }else {
                 maxCheckX = maxX;
             }
-            if (currentX - 4 > 0)
-                minCheckX = currentX - 4;
-            else {
+            if (currentX - ofNFactors > 0) {
+                minCheckX = currentX - ofNFactors;
+            }else {
                 minCheckX = 0;
             }
-            if (currentY + 4 < toUse.length)
-                maxCheckY = currentY + 4;
-            else {
+            if (currentY + ofNFactors < toUse.length){
+                maxCheckY = currentY + ofNFactors;
+            }else {
                 maxCheckY = maxY;
             }
-            if (currentY - 4 > 0)
-                minCheckY = currentY - 4;
-            else {
+            if (currentY - ofNFactors > 0){
+                minCheckY = currentY - ofNFactors;
+            }else {
                 minCheckY = 0;
             }
 
@@ -61,7 +64,7 @@ function productOfGrid(ofNFactors) {
             // Vertical 
             var first = toUse[minCheckY][currentX];
             for (var k = minCheckY; k < maxCheckY; k++) {
-                if (counter == ofNFactors) {
+                if (counter === ofNFactors) {
                     if (first !== 0){
                         runningTotal = runningTotal / first;
                     }  
@@ -81,7 +84,7 @@ function productOfGrid(ofNFactors) {
             // Horizontal
             first = toUse[currentY][minCheckX];
             for (var n = minCheckX; n < maxCheckX; n++) {
-                if (counter == ofNFactors) {
+                if (counter === ofNFactors) {
                     if (first !== 0){
                         runningTotal = runningTotal / first;
                     }  
@@ -99,7 +102,29 @@ function productOfGrid(ofNFactors) {
             runningTotal = 1;
             
             // Diagonal down + right
+            first = toUse[minCheckY][minCheckX];
+            var maxAdded = Math.min(maxCheckX - minCheckX, maxCheckY - minCheckY);
+            debugger;
+            for (var p = 0; p < maxAdded; p++) {
+                if (counter === ofNFactors) {
+                    if (first !== 0){
+                        runningTotal = runningTotal / first;
+                    }  
+                    first = toUse[minCheckY + p - ofNFactors + 1][minCheckX + p - ofNFactors + 1];
+                    counter--;
+                }
+                current = toUse[minCheckY + p][minCheckX + p];
+                runningTotal *= current;
+                counter++;
+                if (runningTotal > largestProduct) {
+                    largestProduct = runningTotal;
+                }
+            }
+
+            counter = 0;
+            runningTotal = 1;
             
+            // Diagonal down + left
         }
      }
     return largestProduct;
