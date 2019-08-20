@@ -124,6 +124,23 @@ function productOfGrid(ofNFactors) {
             runningTotal = 1;
             
             // Diagonal down + left
+            first = toUse[minCheckY][maxCheckX];
+            var maxAdded = Math.min(maxCheckX - minCheckX, maxCheckY - minCheckY);
+            for (var p = 0; p < maxAdded; p++) {
+                if (counter === ofNFactors) {
+                    if (first !== 0){
+                        runningTotal = runningTotal / first;
+                    }  
+                    first = toUse[minCheckY + p - ofNFactors + 1][maxCheckX - p + ofNFactors - 1];
+                    counter--;
+                }
+                current = toUse[minCheckY + p][maxCheckX - p];
+                runningTotal *= current;
+                counter++;
+                if (runningTotal > largestProduct) {
+                    largestProduct = runningTotal;
+                }
+            }
         }
      }
     return largestProduct;
