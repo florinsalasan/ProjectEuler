@@ -1,22 +1,44 @@
-function divisibleNumbers(minDivisors) {
-    var currentTriangle = 1;
-    var toAdd = 2;
-    var largerThanMin = false;
-    while (!largerThanMin) {
-        var divisors = new Set([1]);
-        for (var i = 2; i < currentTriangle; i++) {
+function triangleGenerator(nthTriangle) {
+    var total = 0;
+    for (var j = 0; j <= nthTriangle; j++){
+        total += j;
+    }
+    return total;
+}
+
+function smallestTriangleWith(minimumNDivisors) {
+    var currentN = 1;
+    var currentTriangle = triangleGenerator(currentN);
+    var hasNDivisors = false;
+    var divisors = [1];
+    var knownDivisors = new Map();
+    while (!hasNDivisors) {
+        for (var i = currentTriangle; i > 1; i--){
             if (currentTriangle % i === 0) {
-                divisors.push(i);
+                debugger;
+                if (knownDivisors.has(i)) {
+                    var toConcat = knownDivisors.get(i);
+                    divisors = divisors.concat(toConcat);
+                    var duplicates = new Map();
+                    for (var k = 0; k < divisors.length; k++){
+                        if (duplicates.has(divisors[k])) {
+                            divisors.splice(k, 1);
+                        } else {
+                            duplicates.set(k, 1);
+                        }
+                    }
+                } else {
+                    divisors.push(i)
+                    knownDivisors.set(i, divisors);
+                }
             }
         }
-        if (divisors.length > minDivisors) {
-            largerThanMin = true
+        if (divisors.length > minimumNDivisors) {
+            hasNDivisors = true;
         } else {
-            currentTriangle += toAdd;
-            toAdd++;
-            console.log(divisors);
+            currentN++;
+            currentTriangle = triangleGenerator(currentN);
         }
-
     }
     return currentTriangle;
 }
