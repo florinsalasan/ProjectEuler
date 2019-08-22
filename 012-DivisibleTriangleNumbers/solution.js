@@ -3,8 +3,8 @@ function divisibleNumbers(minDivisors) {
     var toAdd = 2;
     var largerThanMin = false;
     while (!largerThanMin) {
-        var divisors = new Set([1]);
-        for (var i = 2; i < currentTriangle; i++) {
+        var divisors = [1];
+        for (var i = 2; i <= currentTriangle; i++) {
             if (currentTriangle % i === 0) {
                 divisors.push(i);
             }
