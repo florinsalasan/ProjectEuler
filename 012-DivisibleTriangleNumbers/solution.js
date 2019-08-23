@@ -1,3 +1,4 @@
+
 function divisibleNumbers(minDivisors) {
     var currentTriangle = 1;
     var toAdd = 2;
@@ -24,3 +25,4 @@ function divisibleNumbers(minDivisors) {
     }
     return currentTriangle;
 }
+
