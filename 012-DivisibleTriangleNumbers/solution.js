@@ -3,13 +3,17 @@ function divisibleNumbers(minDivisors) {
     var toAdd = 2;
     var largerThanMin = false;
     while (!largerThanMin) {
-        var divisors = [1];
-        for (var i = 2; i <= currentTriangle; i++) {
+        divisors = 0;
+        var sqrt = Math.floor(Math.sqrt(currentTriangle));
+        for (var i = 1; i <= sqrt; i++) {
             if (currentTriangle % i === 0) {
-                divisors.push(i);
+                divisors += 2;
             }
         }
-        if (divisors.length > minDivisors) {
+        if (sqrt * sqrt === currentTriangle) {
+            divisors--;
+        }
+        if (divisors > minDivisors) {
             largerThanMin = true
         } else {
             currentTriangle += toAdd;
