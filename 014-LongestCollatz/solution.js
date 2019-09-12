@@ -19,10 +19,10 @@ function longestCollatz(startingLimit) {
                 //the check if the value is already in the map, continues the sequence
                 if (toGetToOne % 2 == 0) {
                     toGetToOne /= 2;
-                    valuesSeenSoFar.concat(toGetToOne);
+                    valuesSeenSoFar = valuesSeenSoFar.concat(toGetToOne);
                 } else {
                     toGetToOne = 3 * toGetToOne + 1;
-                    valuesSeenSoFar.concat(toGetToOne);
+                    valuesSeenSoFar = valuesSeenSoFar.concat(toGetToOne);
                 }
             } else {
                 break;
